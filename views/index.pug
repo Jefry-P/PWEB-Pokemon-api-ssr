@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/style/style.css")
+    link(rel="icon" href="/assets/icon.png" type="image/x-icon")
+    script(src="/script.js" defer) 
+    title Pokemon browser
+  body
+    h1.h1 Pokémon Browser
+    form(action="#" id="search-form" name="search-form")
+      label(for="name") Name
+      input#name(name="name" type="text" placeholder="Your pokémon")
+      input(type="submit" value="Search")
+      if error
+        span.error.error-display= error
+
+    ul.pokemon-list
+      if pokemonList
+        each pokemon in pokemonList
+          li.card
+            .card-section
+              .bar(class=pokemon.types[0])
+              img(src=pokemon.img alt=pokemon.name)
+              .info
+                span #{pokemon.id}
+                span.span-name #{pokemon.name}
+                ul
+                  each type in pokemon.types
+                    li.type(class=type) #{type}
+
+            .card-buttons
+              button.btn.update(onclick=`editMode("${pokemon.name}")`) Edit
+              button.btn.delete(onclick=`deletePokemon(${pokemon.id})`) Delete
